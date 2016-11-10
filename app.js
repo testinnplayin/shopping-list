@@ -7,9 +7,9 @@ var state = {
 function processInput(state, item) {
 	if (item === "") {
 		alert("No item entered");
+	} else {
+		return state.items.push(item);
 	}
-
-	return state.items.push(item);
 }
 
 function displayItems(state, element) {
@@ -24,13 +24,23 @@ function displayItems(state, element) {
 
 }
 
+function takeAction(e) {
+	e.preventDefault();
+
+	var userItem = $('#shopping-list-entry').val();
+	processInput(state, userItem);
+	displayItems(state, $('.shopping-list'));
+}
+
 function handleSubmit() {
 	$('.submit-btn').click(function(e) {
-		e.preventDefault();
+		takeAction(e);
+	});
 
-		var userItem = $('#shopping-list-entry').val();
-		processInput(state, userItem);
-		displayItems(state, $('.shopping-list'));
+	$('#shopping-list-entry').keydown(function(e) {
+		if (e.which === 13) {
+			takeAction(e);
+		}
 	});
 }
 
