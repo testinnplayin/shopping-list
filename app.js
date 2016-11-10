@@ -46,14 +46,20 @@ function handleSubmit() {
 
 function handleCheck() {
 	$('.shopping-item-toggle').on('click', function() {
-
 		$(this).parent().prev().toggleClass('shopping-item__checked');
+	});
+}
+
+function handleDelete() {
+	$('.shopping-item-delete').on('click', function() {
+		$(this).closest('li').remove();
 	});
 }
 
 function handleActions() {
 	handleSubmit();
 	handleCheck();
+	handleDelete();
 }
 
 $(document).ready(handleActions);
