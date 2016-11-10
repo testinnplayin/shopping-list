@@ -5,11 +5,9 @@ var state = {
 };
 
 function processInput(state, item) {
-	if (item === "") {
-		alert("No item entered");
-	} else {
-		return state.items.push(item);
-	}
+
+	item === "" ? alert("No item entered") : state.items.push(item)
+	return state;
 }
 
 function displayItems(state, element) {
@@ -17,7 +15,8 @@ function displayItems(state, element) {
 		return (
 			"<li><span class='shopping-item'>" 
 			+ item 
-			+ "</span><div class='shopping-item-controls'><button class='shopping-item-toggle'><span class='button-label'>check</span></button><button class='shopping-item-delete'><span class='button-label'>delete</span></button></div></li>"
+			+ "</span><div class='shopping-item-controls'><button class='shopping-item-toggle'><span class='button-label'>check</span></button>" 
+			+ "<button class='shopping-item-delete'><span class='button-label'>delete</span></button></div></li>"
 		);
 	});
 	element.html(itemsDisplay);
@@ -28,6 +27,7 @@ function takeAction(e) {
 	e.preventDefault();
 
 	var userItem = $('#shopping-list-entry').val();
+
 	processInput(state, userItem);
 	displayItems(state, $('.shopping-list'));
 }
@@ -44,4 +44,16 @@ function handleSubmit() {
 	});
 }
 
-$(document).ready(handleSubmit);
+function handleCheck() {
+	$('.shopping-item-toggle').on('click', function() {
+
+		$(this).parent().prev().toggleClass('shopping-item__checked');
+	});
+}
+
+function handleActions() {
+	handleSubmit();
+	handleCheck();
+}
+
+$(document).ready(handleActions);
